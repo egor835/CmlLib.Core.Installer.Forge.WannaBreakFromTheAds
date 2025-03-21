@@ -7,9 +7,6 @@ namespace CmlLib.Core.Installer.Forge;
 
 public class ForgeInstaller
 {
-    public static readonly string ForgeAdUrl =
-        "https://adfoc.us/serve/sitelinks/?id=271228&url=https://maven.minecraftforge.net/";
-
     private readonly MinecraftLauncher _launcher;
     private readonly IForgeInstallerVersionMapper _installerMapper;
     private readonly ForgeVersionLoader _versionLoader;
@@ -75,7 +72,6 @@ public class ForgeInstaller
             options.JavaPath = getJavaPath(version);
 
         await installer.Install(_launcher.MinecraftPath, _launcher.GameInstaller, options);
-        showAd();
         await _launcher.GetAllVersionsAsync();
         return installer.VersionName;
     }
@@ -112,12 +108,5 @@ public class ForgeInstaller
             throw new InvalidOperationException("Cannot find any java binary. Set java binary path");
 
         return javaPath;
-    }
-
-    private void showAd()
-    {
-        //########################AD URL##############################
-        Process.Start(new ProcessStartInfo(ForgeAdUrl) { UseShellExecute = true });
-        //########################AD URL##############################
     }
 }
