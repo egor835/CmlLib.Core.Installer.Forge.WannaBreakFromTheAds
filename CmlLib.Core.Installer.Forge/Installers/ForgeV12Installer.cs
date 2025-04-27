@@ -6,9 +6,9 @@ using System.Text.Json;
 namespace CmlLib.Core.Installer.Forge.Installers;
 
 /* 1.12.2 - 1.20.* */
-public class FNewest : IForgeInstaller
+public class ForgeV12Installer : IForgeInstaller
 {
-    public FNewest(string versionName, ForgeVersion forgeVersion)
+    public ForgeV12Installer(string versionName, ForgeVersion forgeVersion)
     {
         VersionName = versionName;
         ForgeVersion = forgeVersion;
@@ -55,7 +55,7 @@ public class FNewest : IForgeInstaller
         if (installerProfile.TryGetProperty("libraries", out var libraryProp) &&
             libraryProp.ValueKind == JsonValueKind.Array)
         {
-            var libraryInstaller = new ForgeLibraryInstaller(installer, options.RulesContext, MojangServer.Library);
+            var libraryInstaller = new ForgeLibraryInstaller(installer, options.RulesEvaluator, options.RulesContext, MojangServer.Library);
             await libraryInstaller.Install(
                 path,
                 libraryProp,
